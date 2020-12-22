@@ -17,6 +17,8 @@
   onMount(async () => {
     const module = await import("$components/SearchBar.svelte");
     SearchBar = module.default;
+
+    if (searchQuery) dispatch(() => search(searchQuery, "home"));
   });
 </script>
 

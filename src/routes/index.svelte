@@ -38,7 +38,7 @@
     params = new URLSearchParams(window.location.search);
     searchQuery = params.get("q");
 
-    mobile = window.screen.width < 1024;
+    mobile = window.screen.width < 700;
 
     const unsubscribe = searchState.subscribe((value) => {
       minimal = value.searched;
@@ -101,7 +101,7 @@
   }
 </style>
 
-<Navbar {minimal} {mobile} />
+<Navbar {minimal} {mobile} {searchQuery} />
 <main class:minimal>
   {#if !error && minimal}
     <div class="results">
