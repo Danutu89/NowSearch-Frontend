@@ -83,6 +83,6 @@
 </style>
 
 <navbar class:minimal>
-  <h1 class:minimal>{`${mobile && minimal ? 'N' : 'NowSearch'}`}</h1>
+  <h1 class:minimal>{`${mobile && minimal ? 'V' : 'Vfakwes'}`}</h1>
   <svelte:component this={SearchBar} onSearch={submitSearch} {minimal} />
 </navbar>
