@@ -1,20 +1,19 @@
 <script>
   import { onMount } from "svelte";
-  import { main as mainState } from "$stores/index";
-  import { catcher } from "$utils/index";
   import Navbar from "$components/Navbar.svelte";
   import InfoBox from "$components/InfoBox.svelte";
   import Suggestions from "$components/Suggestions.svelte";
   import Corrections from "$components/Corrections.svelte";
   import Answers from "$components/Answers.svelte";
+  import { search } from "../actions/index";
+  import { dispatch } from "$utils/index";
   import { searchReducer } from "$reducers/index";
   import { searchInterceptor } from "$interceptors/index";
   import { search as searchState } from "$stores/index";
   import { addReducerAndInterceptors } from "$utils/index";
 
   let CardList,
-    searchQuery,
-    params,
+    searchQuery = "",
     minimal,
     infobox,
     loading,
@@ -35,8 +34,14 @@
     const module = await import("$components/CardList.svelte");
     CardList = module.default;
 
-    params = new URLSearchParams(window.location.search);
-    searchQuery = params.get("q");
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    searchQuery = urlParams.get("q");
+
+    if (searchQuery && searchQuery.length > 0) {
+      dispatch(() => search(searchQuery, "home"));
+    }
 
     mobile = window.screen.width < 700;
 
@@ -50,11 +55,6 @@
         answers = value.data.answers;
         corrections = value.data.corrections;
       }
-    });
-
-    const m_unsubscribe = mainState.subscribe((value) => {
-      console.log(value);
-      catcher(value);
     });
   });
 </script>
@@ -101,7 +101,7 @@
   }
 </style>
 
-<Navbar {minimal} {mobile} {searchQuery} />
+<Navbar {minimal} {mobile} />
 <main class:minimal>
   {#if !error && minimal}
     <div class="results">

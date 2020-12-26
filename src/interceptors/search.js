@@ -5,6 +5,7 @@ import {dispatch} from '$utils/index';
 const search = async ({query, name}) => {
     const body = new FormData();
     body.append("q", query);
+    body.append("language", "en");
     body.append("category_videos", "on");
     body.append("category_general", "on");
 

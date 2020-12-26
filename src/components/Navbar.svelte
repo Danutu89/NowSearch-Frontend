@@ -3,11 +3,9 @@
   import { search } from "../actions/index";
   import { dispatch } from "$utils/index";
 
-  export let minimal, searchQuery, mobile;
+  export let minimal, mobile;
 
   let SearchBar;
-
-  let params;
 
   const submitSearch = (query) => {
     minimal = true;
@@ -17,8 +15,6 @@
   onMount(async () => {
     const module = await import("$components/SearchBar.svelte");
     SearchBar = module.default;
-
-    if (searchQuery) dispatch(() => search(searchQuery, "home"));
   });
 </script>
 
@@ -87,6 +83,6 @@
 </style>
 
 <navbar class:minimal>
-  <h1 class:minimal>{`${mobile && minimal ? 'N' : 'NewApp'}`}</h1>
+  <h1 class:minimal>{`${mobile && minimal ? 'N' : 'NowSearch'}`}</h1>
   <svelte:component this={SearchBar} onSearch={submitSearch} {minimal} />
 </navbar>

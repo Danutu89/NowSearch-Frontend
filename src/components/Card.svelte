@@ -68,7 +68,7 @@
           grid-auto-flow: column;
           grid-template-columns: 20px;
           grid-gap: 0.5rem;
-          overflow: auto;
+          overflow: hidden;
 
           span {
             line-height: 1.2;

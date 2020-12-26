@@ -5,12 +5,11 @@
 
   onMount(async () => {
     const unsubscribe = mainState.subscribe((value) => {
-      console.log(value.action);
+      console.log($mainState);
       catcher(value);
+      console.log($mainState);
     });
   });
-
-  console.log(1);
 </script>
 
 <slot />
