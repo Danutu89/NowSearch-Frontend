@@ -1,8 +1,8 @@
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
-<ShortName>Vfakwes</ShortName>
+<ShortName>Vfawkes</ShortName>
 <Description>a privacy-respecting, hackable metasearch engine</Description>
 <InputEncoding>UTF-8</InputEncoding>
-<Image>https://vfakwes.io/favicon.ico</Image>
-<LongName>Vfakwes Meta Search</LongName>
-<Url rel="results" type="text/html" method="get" template="https://vfakwes.io/?q={searchTerms}"/>
+<Image>https://vfawkes.io/favicon.ico</Image>
+<LongName>Vfawkes Meta Search</LongName>
+<Url rel="results" type="text/html" method="get" template="https://vfawkes.io/?q={searchTerms}"/>
 </OpenSearchDescription>
