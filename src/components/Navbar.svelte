@@ -49,21 +49,36 @@
     }
   }
 
-  h1 {
-    color: $primary-color;
-    font-size: 3rem;
-    font-weight: 100;
-    line-height: 1.1;
+  div {
+    display: flex;
     margin: 4rem auto;
+    text-align: center;
+    justify-content: center;
+
+    &.mobile {
+      padding: 0 0 0 1rem !important;
+    }
 
     &.minimal {
-      margin: auto 1rem;
-      font-size: 1.5rem;
-      width: 7rem;
+      margin: initial;
+      justify-content: center;
+      padding: 0 1rem;
+    }
 
-      @media screen and (max-width: 1024px) {
-        width: auto;
-        margin: auto 0.2rem auto 1rem;
+    h1 {
+      color: $font-color;
+      font-size: 3rem;
+      font-weight: 100;
+      line-height: 1.1;
+
+      &.minimal {
+        font-size: 1.5rem;
+        margin: auto 0;
+
+        @media screen and (max-width: 1024px) {
+          width: auto;
+          margin: auto 0.2rem auto 1rem;
+        }
       }
     }
   }
@@ -83,6 +98,15 @@
 </style>
 
 <navbar class:minimal>
-  <h1 class:minimal>{`${mobile && minimal ? 'V' : 'Vfawkes'}`}</h1>
+  <div class:minimal class:mobile={minimal && mobile}>
+    <img
+      src="fawks-logo.svg"
+      height={minimal ? '40px' : '100px'}
+      alt="vfawkes logo"
+      class:minimal={mobile || minimal} />
+    {#if (!mobile && !minimal) || !mobile}
+      <h1 class:minimal>Fawkes</h1>
+    {/if}
+  </div>
   <svelte:component this={SearchBar} onSearch={submitSearch} {minimal} />
 </navbar>

@@ -21,6 +21,7 @@
     corrections,
     answers,
     mobile,
+    query,
     error;
 
   onMount(async () => {
@@ -49,6 +50,7 @@
       minimal = value.searched;
       loading = value.loading;
       error = value.error;
+      query = value.query;
       if (value.loading == false && value.searched) {
         infobox = value.data.infoboxes ? value.data.infoboxes[0] : null;
         suggestions = value.data.suggestions;
@@ -100,6 +102,10 @@
     }
   }
 </style>
+
+<svelte:head>
+  <title>{minimal ? 'Search - ' + query : 'Fawkes'}</title>
+</svelte:head>
 
 <Navbar {minimal} {mobile} />
 <main class:minimal>

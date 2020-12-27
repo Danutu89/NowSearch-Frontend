@@ -5,9 +5,7 @@
 
   onMount(async () => {
     const unsubscribe = mainState.subscribe((value) => {
-      console.log($mainState);
-      catcher(value);
-      console.log($mainState);
+      if (typeof value.called == "string") catcher(value);
     });
   });
 </script>

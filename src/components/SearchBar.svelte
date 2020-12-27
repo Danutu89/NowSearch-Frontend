@@ -40,7 +40,7 @@
     &.minimal {
       height: 35px;
       width: 700px;
-      margin: 0 2rem;
+      margin: 0 1rem;
 
       @media screen and (max-width: 1024px) {
         margin: 0 1rem;
