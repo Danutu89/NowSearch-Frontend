@@ -105,6 +105,9 @@
 
 <svelte:head>
   <title>{minimal ? 'Search - ' + query : 'Fawkes'}</title>
+  <meta
+    name="description"
+    content="Search the world's information, including webpages, images, videos and more" />
 </svelte:head>
 
 <Navbar {minimal} {mobile} />
