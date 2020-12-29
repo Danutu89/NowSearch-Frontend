@@ -7,6 +7,7 @@ const search = async ({query, name}) => {
     body.append("q", query);
     body.append("language", "en");
     body.append("category_videos", "on");
+    body.append("category_it", "on");
     body.append("category_general", "on");
 
     try {
@@ -18,7 +19,7 @@ const search = async ({query, name}) => {
 
         dispatch(() => searched(data, name));
     } catch (error) {
-        disparch(() => searchFailed(error.message));
+        disparch(() => searchFailed(error.message, name));
     }
 }
 

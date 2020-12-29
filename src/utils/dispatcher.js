@@ -1,7 +1,7 @@
 import {main as mainStore} from '$stores/index';
 
 function dispatch (action) {
-    const action_ = action();
+    const action_ = typeof action === 'function' ? action() : action;
     mainStore.update((prevState) => ({called: action_.name, [action_.name]: {...prevState[action_.name], action: action_}}));
 }
 

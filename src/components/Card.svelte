@@ -2,8 +2,10 @@
   export let result, loading;
   import { onMount } from "svelte";
 
-  import CardVideo from "./CardVideo";
+  import CardInnerVideo from "./CardInnerVideo";
   import { styles } from "$utils/index";
+  import CardInnerNpm from "./CardInnerNpm.svelte";
+  import CardInnerLinuxPackage from "./CardInnerLinuxPackage.svelte";
 
   let width;
 
@@ -128,9 +130,7 @@
   }
 </style>
 
-<card
-  class:grids={result && !loading && result.category === 'videos'}
-  use:styles={{ width: width }}>
+<card use:styles={{ width: width }}>
   {#if loading}
     <div class="content">
       <div class="title loading" />
@@ -138,10 +138,13 @@
       <div class="description loading" style="width: 70%;" />
       <div class="description loading" style="width: 40%;" />
     </div>
+  {:else if result.category === 'videos'}
+    <CardInnerVideo data={result} />
+  {:else if result.engine === 'npm'}
+    <CardInnerNpm data={result} />
+  {:else if result.engine === 'arch'}
+    <CardInnerLinuxPackage data={result} />
   {:else}
-    {#if result.category === 'videos'}
-      <CardVideo data={result} />
-    {/if}
     <div class="content">
       <a href={result.url} class="title">
         <div class="content">

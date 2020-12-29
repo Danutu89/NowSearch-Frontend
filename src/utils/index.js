@@ -1,8 +1,10 @@
 import request from './request';
+import copy from './copy';
 
 export * from './dispatcher';
 export * from './actions';
 export * from './styles';
 export {
-    request
+    request,
+    copy
 }
