@@ -17,6 +17,8 @@
     img {
       width: 100%;
       height: 100%;
+      border-radius: 10px;
+      border: 2px solid lighten($color: $background-darker, $amount: 10);
     }
 
     .overlay {
@@ -40,14 +42,21 @@
       }
 
       .play-button {
-        text-decoration: none;
-        text-decoration-line: none;
         margin: auto auto;
-        bottom: -11px;
-        border-radius: 20px;
-        background-color: transparentize($color: $background, $amount: 0.2);
-        padding: 0.4rem 1rem;
+        padding: 1.4rem 0 0 0;
         color: $font-color;
+
+        svg {
+          height: 25px;
+          width: 25px;
+          fill: transparentize($color: $background, $amount: 0);
+          vertical-align: middle;
+          bottom: -11px;
+          border-radius: 50px;
+          background-color: transparentize($color: $background, $amount: 0.35);
+          padding: 0.7rem 0.8rem;
+          color: $font-color;
+        }
       }
     }
   }
@@ -96,7 +105,23 @@
       <img src={data.thumbnail} alt={data.title} />
 
       <div class="overlay">
-        <div class="play-button">Play</div>
+        <div class="play-button">
+          <svg
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            x="0px"
+            y="0px"
+            viewBox="0 0 320.001 320.001"
+            style="enable-background:new 0 0 320.001 320.001;"
+            xml:space="preserve">
+            <path
+              d="M295.84,146.049l-256-144c-4.96-2.784-11.008-2.72-15.904,0.128C19.008,5.057,16,10.305,16,16.001v288
+            c0,5.696,3.008,10.944,7.936,13.824c2.496,1.44,5.28,2.176,8.064,2.176c2.688,0,5.408-0.672,7.84-2.048l256-144
+            c5.024-2.848,8.16-8.16,8.16-13.952S300.864,148.897,295.84,146.049z" />
+          </svg>
+        </div>
 
         {#if data.length}<span class="duration">{data.length}</span>{/if}
       </div>

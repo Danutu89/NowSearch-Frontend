@@ -15,6 +15,7 @@
     height: min-content;
     width: 600px;
     text-align: center;
+    margin-top: 1rem;
 
     img {
       padding: 1rem;

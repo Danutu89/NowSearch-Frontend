@@ -7,13 +7,16 @@
   import Answers from "$components/Answers.svelte";
   import { search } from "../actions/index";
   import { dispatch } from "$utils/index";
-  import { searchReducer } from "$reducers/index";
+  import { searchReducer, imagesReducer } from "$reducers/index";
   import { searchInterceptor } from "$interceptors/index";
-  import { search as searchState } from "$stores/index";
+  import { search as searchState, images as imagesState } from "$stores/index";
   import { addReducerAndInterceptors } from "$utils/index";
 
   let CardList,
+    ImagesList,
     searchQuery = "",
+    searchCategory = "",
+    category,
     minimal,
     infobox,
     loading,
@@ -32,16 +35,22 @@
       searchState
     );
 
-    const module = await import("$components/CardList.svelte");
+    addReducerAndInterceptors(null, imagesReducer, "images", imagesState);
+
+    let module = await import("$components/CardList.svelte");
     CardList = module.default;
+
+    module = await import("$components/ImagesList.svelte");
+    ImagesList = module.default;
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
     searchQuery = urlParams.get("q");
+    searchCategory = urlParams.get("category");
 
     if (searchQuery && searchQuery.length > 0) {
-      dispatch(() => search(searchQuery, "home"));
+      dispatch(() => search(searchQuery, "home", searchCategory || "general"));
     }
 
     mobile = window.screen.width < 700;
@@ -51,6 +60,7 @@
       loading = value.loading;
       error = value.error;
       query = value.query;
+      category = value.category;
       if (value.loading == false && value.searched) {
         infobox = value.data.infoboxes ? value.data.infoboxes[0] : null;
         suggestions = value.data.suggestions;
@@ -74,18 +84,28 @@
 
   main {
     text-align: start;
-    padding: 1em;
+
     margin: 0;
     display: grid;
     grid-auto-flow: column;
     grid-gap: 2rem;
 
-    &.minimal {
+    &.images {
+      display: block;
+    }
+
+    &.minimal.general,
+    &.minimal.videos {
       margin-left: 10rem;
+
+      @media screen and (max-width: 1024px) {
+        margin: 1rem 0;
+      }
     }
 
     .results {
       display: block;
+      padding: 1em;
     }
 
     @media screen and (max-width: 1024px) {
@@ -98,7 +118,7 @@
 
   @media only screen and (max-width: 700px) {
     main {
-      width: calc(100% - 2rem);
+      width: calc(100%);
     }
   }
 </style>
@@ -111,25 +131,29 @@
 </svelte:head>
 
 <Navbar {minimal} {mobile} />
-<main class:minimal>
+<main class:minimal class={`${category}`}>
   {#if !error && minimal}
-    <div class="results">
-      {#if !loading && corrections && corrections.length > 0}
-        <Corrections data={corrections} />
-      {/if}
-      {#if !loading && suggestions && suggestions.length > 0}
-        <Suggestions data={suggestions} />
-      {/if}
-      {#if mobile && infobox && !loading}
+    {#if ['general', 'videos'].includes(category)}
+      <div class="results">
+        {#if !loading && corrections && corrections.length > 0}
+          <Corrections data={corrections} />
+        {/if}
+        {#if !loading && suggestions && suggestions.length > 0}
+          <Suggestions data={suggestions} />
+        {/if}
+        {#if mobile && infobox && !loading}
+          <InfoBox data={infobox} />
+        {/if}
+        {#if !loading && answers && answers.length > 0}
+          <Answers data={answers} />
+        {/if}
+        <svelte:component this={CardList} />
+      </div>
+      {#if !mobile && infobox && !loading}
         <InfoBox data={infobox} />
       {/if}
-      {#if !loading && answers && answers.length > 0}
-        <Answers data={answers} />
-      {/if}
-      <svelte:component this={CardList} />
-    </div>
-    {#if !mobile && infobox && !loading}
-      <InfoBox data={infobox} />
+    {:else if category === 'images'}
+      <svelte:component this={ImagesList} />
     {/if}
   {/if}
 </main>

@@ -1,14 +1,26 @@
-import {searched, searchFailed} from '$actions/index';
+import {searched, searchFailed, imageReset} from '$actions/index';
 import {SEARCH} from '$constants/index';
 import {dispatch} from '$utils/index';
 
-const search = async ({query, name}) => {
+const search = async ({query, name, category}) => {
     const body = new FormData();
     body.append("q", query);
     body.append("language", "en");
-    body.append("category_videos", "on");
-    body.append("category_it", "on");
-    body.append("category_general", "on");
+
+    switch (category) {
+        case 'general':
+            body.append("category_videos", "on");
+            body.append("category_it", "on");
+            body.append("category_general", "on");
+            break;
+        case 'videos':
+            body.append("category_videos", "on");
+            break;
+        case 'images':
+            body.append("category_images", "on");
+            break;
+    }
+    
 
     try {
         const data = await fetch(`api/search`, {
@@ -27,6 +39,7 @@ export function searchInterceptor(action) {
     switch (action.type){
         case SEARCH:
             search(action);
+            dispatch(()=>imageReset('images'));
             break;
     }
 }

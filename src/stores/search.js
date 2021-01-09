@@ -6,6 +6,7 @@ const store = writable({
     error: "",
     searched: false,
     query: "",
+    category: "general",
 });
 
 export default store;

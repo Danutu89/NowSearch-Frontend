@@ -1,20 +1,35 @@
 <script>
   import { onMount } from "svelte";
-  import { search } from "../actions/index";
+  import { search, searchReset } from "../actions/index";
   import { dispatch } from "$utils/index";
+  import SubNav from "./SubNav.svelte";
+  import { search as searchState } from "$stores/index";
 
-  export let minimal, mobile;
+  export let minimal,
+    mobile,
+    logoWidth = 0,
+    logoImage,
+    logoTextWidth = 0;
 
   let SearchBar;
 
-  const submitSearch = (query) => {
+  const submitSearch = (query, category = null) => {
     minimal = true;
-    dispatch(() => search(query, "home"));
+    window.history.replaceState(
+      null,
+      null,
+      `?q=${query}&category=${category || $searchState.category}`
+    );
+    dispatch(() => search(query, "home", category || $searchState.category));
   };
 
   onMount(async () => {
     const module = await import("$components/SearchBar.svelte");
     SearchBar = module.default;
+    logoWidth = `${
+      (logoImage.width / logoImage.height) * 40 + logoTextWidth / 2
+    }px`;
+    console.log(logoWidth, logoImage, logoTextWidth);
   });
 </script>
 
@@ -54,6 +69,7 @@
     margin: 4rem auto;
     text-align: center;
     justify-content: center;
+    cursor: pointer;
 
     &.mobile {
       padding: 0 0 0 1rem !important;
@@ -64,7 +80,6 @@
       justify-content: center;
       padding: 0 1rem;
     }
-
     h1 {
       color: $font-color;
       font-size: 3rem;
@@ -98,15 +113,23 @@
 </style>
 
 <navbar class:minimal>
-  <div class:minimal class:mobile={minimal && mobile}>
+  <div
+    class:minimal
+    class:mobile={minimal && mobile}
+    on:click={() => dispatch(() => searchReset('home'))}>
     <img
       src="fawks-logo.svg"
+      id="logo"
+      bind:this={logoImage}
       height={minimal ? '40px' : '100px'}
       alt="vfawkes logo"
       class:minimal={mobile || minimal} />
     {#if (!mobile && !minimal) || !mobile}
-      <h1 class:minimal>Fawkes</h1>
+      <h1 class:minimal bind:clientWidth={logoTextWidth}>Fawkes</h1>
     {/if}
   </div>
   <svelte:component this={SearchBar} onSearch={submitSearch} {minimal} />
 </navbar>
+{#if minimal}
+  <SubNav {logoWidth} {searchState} onSearch={submitSearch} />
+{/if}
