@@ -50,6 +50,11 @@
       {#each searchState.data.results as result}
         <ImageCard {mobile} {result} loading={false} />
       {/each}
+      {#if searchState.loadingMore === true}
+        {#each Array(5) as x}
+          <ImageCard result={{}} loading={true} />
+        {/each}
+      {/if}
     {:else if searchState.loading === true}
       {#each Array(5) as x}
         <ImageCard result={{}} loading={true} />

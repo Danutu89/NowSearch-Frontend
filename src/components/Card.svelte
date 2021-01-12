@@ -9,7 +9,7 @@
 
   let width;
 
-  if (result.content && result.content.split("—").length > 0) {
+  $: if (result && result.content && result.content.split("—").length > 0) {
     const splitted = result.content.split("—");
     if (splitted.length > 1) {
       result.date = splitted[0];
@@ -28,13 +28,13 @@
   @import "../../static/global.scss";
   card {
     border-radius: 10px;
-    border: 1px solid lighten($color: $background, $amount: 15);
+    border: 1px solid lighten($color: $background, $amount: 7);
     display: grid;
     position: relative;
     text-align: start;
     padding: 1rem;
     color: $font-color;
-    background: lighten($color: $background, $amount: 8);
+    background: lighten($color: $background-darker-secondary, $amount: 0);
 
     @media screen and (max-width: 700px) {
       max-width: calc(var(--width) - 4rem);

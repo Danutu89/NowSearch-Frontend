@@ -1,6 +1,5 @@
 <script>
-  import { search } from "$actions/index";
-  import { dispatch } from "$utils/index";
+  import { submitSearch } from "$utils/index";
   import { onMount } from "svelte";
   export let data;
 
@@ -64,7 +63,7 @@
         <div
           class="suggestion"
           on:click={() => {
-            dispatch(() => search(suggestion, 'home'));
+            submitSearch(suggestion);
           }}>
           {suggestion}
         </div>

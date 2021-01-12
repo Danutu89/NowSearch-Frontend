@@ -19,6 +19,8 @@
 		"fetch-json": "^2.2.9",
 		"node-fetch": "^2.6.1",
 		"snowpack": "^2.18.5",
+		"svelte-chartjs": "^1.0.1",
+		"svelte-select": "^3.16.1",
 		"svelte-tooltip": "^1.2.0"
 	}
 }

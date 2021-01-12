@@ -1,6 +1,5 @@
 <script>
-  import { search } from "$actions/index";
-  import { dispatch } from "$utils/index";
+  import { submitSearch } from "$utils/index";
   export let data;
 </script>
 
@@ -22,7 +21,7 @@
   You mean
   <span
     on:click={() => {
-      dispatch(() => search(data[0], 'home'));
+      submitSearch(data[0]);
     }}>"{data[0]}"
   </span>?
 </correction>

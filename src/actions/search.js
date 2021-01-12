@@ -1,4 +1,4 @@
-import {SEARCH, SEARCHED, SEARCH_FAILED, SEARCH_RESET} from '$constants/index';
+import {SEARCH, SEARCHED, SEARCH_FAILED, SEARCH_RESET, SEARCH_MORE, SEARCHED_MORE, SEARCH_MORE_FAILED} from '$constants/index';
  
 const search = (query, name, category) => {
     return {
@@ -32,4 +32,28 @@ const searchReset = (name) => {
     }
 }
 
-export {search, searched, searchFailed, searchReset}
+const searchMore = (page, name) => {
+    return {
+        type: SEARCH_MORE,
+        page,
+        name,
+    }
+}
+
+const searchedMore = (data, name) => {
+    return {
+        type: SEARCHED_MORE,
+        data,
+        name,
+    }
+}
+
+const searchMoreFailed = (error, name) => {
+    return {
+        type: SEARCH_MORE_FAILED,
+        error,
+        name,
+    }
+}
+
+export {search, searched, searchFailed, searchReset, searchMore, searchedMore, searchMoreFailed}

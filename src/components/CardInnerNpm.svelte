@@ -53,6 +53,10 @@
         border: 2px solid lighten($color: $background-darker, $amount: 10);
         display: flex;
 
+        span {
+          line-height: 1.6;
+        }
+
         button {
           margin: 0.1rem;
           margin-inline-start: auto;

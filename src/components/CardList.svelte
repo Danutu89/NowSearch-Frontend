@@ -1,6 +1,6 @@
 <script>
   import Card from "./Card.svelte";
-  import { search as searchStore } from "../stores/index";
+  import { search as searchStore } from "$stores/index";
 
   let searchState;
   const unsubscribe = searchStore.subscribe((value) => {
@@ -26,6 +26,11 @@
     {#each searchState.data.results as result}
       <Card {result} loading={false} />
     {/each}
+    {#if searchState.loadingMore === true}
+      {#each Array(5) as x}
+        <Card result={{}} loading={true} />
+      {/each}
+    {/if}
   {:else if searchState.loading === true}
     {#each Array(5) as x}
       <Card result={{}} loading={true} />

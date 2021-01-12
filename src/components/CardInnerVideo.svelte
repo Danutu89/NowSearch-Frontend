@@ -74,7 +74,7 @@
 
   .content {
     display: grid;
-    overflow: auto;
+    overflow: hidden;
 
     .title {
       color: $link-color;
@@ -95,6 +95,7 @@
 
     .description {
       width: 100%;
+      word-break: break-word;
     }
   }
 </style>

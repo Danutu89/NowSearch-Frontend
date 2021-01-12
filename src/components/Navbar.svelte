@@ -1,7 +1,8 @@
 <script>
   import { onMount } from "svelte";
-  import { search, searchReset } from "../actions/index";
+  import { searchReset } from "../actions/index";
   import { dispatch } from "$utils/index";
+  import { submitSearch } from "$utils/index";
   import SubNav from "./SubNav.svelte";
   import { search as searchState } from "$stores/index";
 
@@ -13,23 +14,12 @@
 
   let SearchBar;
 
-  const submitSearch = (query, category = null) => {
-    minimal = true;
-    window.history.replaceState(
-      null,
-      null,
-      `?q=${query}&category=${category || $searchState.category}`
-    );
-    dispatch(() => search(query, "home", category || $searchState.category));
-  };
-
   onMount(async () => {
     const module = await import("$components/SearchBar.svelte");
     SearchBar = module.default;
     logoWidth = `${
       (logoImage.width / logoImage.height) * 40 + logoTextWidth / 2
     }px`;
-    console.log(logoWidth, logoImage, logoTextWidth);
   });
 </script>
 
@@ -116,7 +106,10 @@
   <div
     class:minimal
     class:mobile={minimal && mobile}
-    on:click={() => dispatch(() => searchReset('home'))}>
+    on:click={() => {
+      window.history.replaceState(null, null, `/`);
+      dispatch(() => searchReset('home'));
+    }}>
     <img
       src="fawks-logo.svg"
       id="logo"

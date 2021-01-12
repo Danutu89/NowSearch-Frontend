@@ -17,7 +17,7 @@
 
     @media screen and (max-width: 1024px) {
       padding-left: 0.6rem;
-      width: 100%;
+      width: calc(100% - 0.6rem);
     }
 
     div {
@@ -37,7 +37,7 @@
       }
 
       hr {
-        margin: 0.3rem -0.4rem;
+        margin: 0.4rem -0.4rem;
         position: absolute;
         width: 100%;
         border-color: $primary-color;

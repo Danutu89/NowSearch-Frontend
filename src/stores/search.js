@@ -7,6 +7,7 @@ const store = writable({
     searched: false,
     query: "",
     category: "general",
+    page: 1,
 });
 
 export default store;

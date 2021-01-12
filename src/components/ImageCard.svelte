@@ -2,7 +2,7 @@
   export let result, loading;
   import { onMount } from "svelte";
   import { styles } from "$utils/index";
-  import { images as imagesState } from "$stores/index";
+  import ImageLoader from "./ImageLoader.svelte";
 
   import { imagesSelect } from "../actions/index";
   import { dispatch } from "$utils/index";
@@ -58,7 +58,7 @@
     }
 
     @media screen and (max-width: 700px) {
-      max-width: calc(var(--width));
+      max-width: calc(var(--width) - 3.4rem);
       .content {
         img {
           margin: auto;
@@ -152,7 +152,7 @@
 </style>
 
 <figure
-  use:styles={{ width: width, cardWidth: `${scaledDimensions[1]}px`, borderRadius }}
+  use:styles={{ width: width, cardWidth: loading ? '20%' : `${scaledDimensions[1]}px`, borderRadius }}
   class="card"
   bind:clientWidth={cardWidth}>
   {#if loading}

@@ -1,4 +1,6 @@
 <script>
+  import CurrencyConvertAnswer from "./CurrencyConvertAnswer";
+  import WheaterAnswer from "./WheaterAnswer";
   export let data;
 </script>
 
@@ -6,11 +8,11 @@
   @import "../../static/global.scss";
   answer {
     border-radius: 10px;
-    border: 1px solid lighten($color: $background, $amount: 15);
+    border: 1px solid lighten($color: $background, $amount: 7);
     display: block;
     text-align: left !important;
     color: $font-color;
-    background: lighten($color: $background, $amount: 8);
+    background: lighten($color: $background-darker-secondary, $amount: 0);
     height: min-content;
     width: calc(700px - 2rem);
     padding: 1rem;
@@ -23,4 +25,10 @@
   }
 </style>
 
-<answer>{data}</answer>
+<answer>
+  {#if data.answer === 'conversion'}
+    <CurrencyConvertAnswer data={data.data} />
+  {:else if data.answer === 'weather'}
+    <WheaterAnswer data={data.data} />
+  {:else}{data.answer}{/if}
+</answer>
