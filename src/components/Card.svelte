@@ -6,6 +6,7 @@
   import { styles } from "$utils/index";
   import CardInnerNpm from "./CardInnerNpm.svelte";
   import CardInnerLinuxPackage from "./CardInnerLinuxPackage.svelte";
+  import CardInnerVeelancingJob from "./CardInnerVeelancingJob";
 
   let width;
 
@@ -144,6 +145,8 @@
     <CardInnerNpm data={result} />
   {:else if result.engine === 'arch'}
     <CardInnerLinuxPackage data={result} />
+  {:else if result.engine === 'veelancing'}
+    <CardInnerVeelancingJob data={result} />
   {:else}
     <div class="content">
       <a href={result.url} class="title">

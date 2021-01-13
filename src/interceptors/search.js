@@ -22,6 +22,7 @@ const search = async ({ query, name, category }) => {
       body.append("category_it", "on");
       body.append("category_general", "on");
       body.append("category_movies", "on");
+      body.append("category_jobs", "on");
       break;
     case "videos":
       body.append("category_videos", "on");

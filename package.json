@@ -20,6 +20,7 @@
 		"node-fetch": "^2.6.1",
 		"snowpack": "^2.18.5",
 		"svelte-chartjs": "^1.0.1",
+		"svelte-flagicon": "^0.2.0",
 		"svelte-select": "^3.16.1",
 		"svelte-tooltip": "^1.2.0"
 	}
