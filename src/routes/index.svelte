@@ -103,7 +103,7 @@
 
   main {
     text-align: start;
-
+    height: 100%;
     margin: 0;
     display: grid;
     grid-auto-flow: column;
@@ -133,6 +133,20 @@
       &.minimal {
         margin-left: 0rem;
       }
+    }
+  }
+
+  .copyright {
+    position: absolute;
+    text-align: center;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+    color: darken($color: $font-color, $amount: 60);
+
+    a {
+      color: darken($color: $font-color, $amount: 60);
     }
   }
 
@@ -180,7 +194,15 @@
     {/if}
   {/if}
 </main>
+{#if !minimal}
+  <div class="copyright">
+    A
+    <a href="https://veelancing.io">Veelancing</a>
+    product. All rights reserved ©<a href="https://vbrlabs.io">VBR Labs</a>, a
+    VBR Energy Network company.
+  </div>
+{/if}
 <InfiniteScroll
-  hasMore={!loadingMore}
+  hasMore={!loadingMore && minimal && !loading}
   threshold={200}
   on:loadMore={() => dispatch(() => searchMore(page + 1, 'home'))} />
